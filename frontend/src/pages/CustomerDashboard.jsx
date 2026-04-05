@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Smartphone, MapPin, Truck, RefreshCw, Cpu, Award, Trash2 } from 'lucide-react';
+import { Smartphone, MapPin, Truck, RefreshCw, Cpu, Award, Trash2, Leaf, ShieldAlert, BarChart2 } from 'lucide-react';
 
 const CustomerDashboard = () => {
   const [deviceType, setDeviceType] = useState('phone');
@@ -8,6 +8,14 @@ const CustomerDashboard = () => {
   const [suggestion, setSuggestion] = useState(null);
   const [devices, setDevices] = useState([]);
   const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+  
+  // Environmental constants for quantification
+  const ECO_METRICS = {
+    phone: { points: 50, co2_kg: 5.5, toxic_g: 2.1 },
+    laptop: { points: 150, co2_kg: 35.0, toxic_g: 15.5 },
+    tv: { points: 200, co2_kg: 60.0, toxic_g: 30.2 },
+    accessories: { points: 20, co2_kg: 1.2, toxic_g: 0.5 }
+  };
 
   // Mock currently logged-in user from localStorage 
   const currentUser = JSON.parse(localStorage.getItem('ewaste_user'))?.username || 'customer';
@@ -75,6 +83,34 @@ const CustomerDashboard = () => {
     }
   };
 
+  // Calculate environmental impact dynamically
+  const calculateImpact = () => {
+    return devices.reduce((acc, dev) => {
+      const type = dev.device_type.toLowerCase().includes('laptop') ? 'laptop' 
+                 : dev.device_type.toLowerCase().includes('tv') ? 'tv'
+                 : dev.device_type.toLowerCase().includes('phone') ? 'phone'
+                 : 'accessories';
+      
+      const metrics = ECO_METRICS[type] || ECO_METRICS.accessories;
+      return {
+        points: acc.points + metrics.points,
+        co2: acc.co2 + (metrics.co2_kg || 0),
+        toxic: acc.toxic + (metrics.toxic_g || 0)
+      };
+    }, { points: 0, co2: 0, toxic: 0 });
+  };
+  
+  const impact = calculateImpact();
+  
+  // Determine Tier
+  const getRankTier = (pts) => {
+    if (pts < 50) return { name: 'Eco-Starter', color: 'secondary' };
+    if (pts < 200) return { name: 'Green Warrior', color: 'success' };
+    if (pts < 500) return { name: 'Earth Champion', color: 'primary' };
+    return { name: 'Sustainability Hero', color: 'warning' };
+  };
+  const tier = getRankTier(impact.points);
+
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -83,7 +119,49 @@ const CustomerDashboard = () => {
           <p className="text-muted">Manage your e-waste smartly and earn rewards</p>
         </div>
         <div className="text-end">
-          <span className="badge bg-primary fs-6 p-2"><Award size={18} className="me-1"/> 150 Eco Points</span>
+          <div className="d-flex flex-column align-items-end">
+            <span className={`badge bg-${tier.color} fs-6 p-2 mb-1`}><Award size={18} className="me-1"/> {impact.points} Eco Points</span>
+            <small className="text-muted fw-bold">Rank: {tier.name}</small>
+          </div>
+        </div>
+      </div>
+
+      {/* Environmental Impact Summary Feature */}
+      <div className="row g-3 mb-4">
+        <div className="col-12">
+          <div className="card shadow-sm border-0 premium-card">
+            <div className="card-header border-0 pt-4 pb-0 bg-transparent">
+              <h5 className="fw-bold d-flex align-items-center gap-2"><Leaf className="text-success"/> Your Environmental Impact</h5>
+            </div>
+            <div className="card-body">
+              <div className="row g-3 text-center">
+                <div className="col-md-4">
+                  <div className="p-3 border rounded">
+                    <div className="kpi-icon green mx-auto mb-2"><BarChart2 size={24}/></div>
+                    <div className="display-6 fw-bold">{impact.co2.toFixed(1)} <span className="fs-6 text-muted">kg</span></div>
+                    <p className="text-muted small mb-0">CO₂ Emissions Averted</p>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="p-3 border rounded">
+                    <div className="kpi-icon purple mx-auto mb-2"><ShieldAlert size={24}/></div>
+                    <div className="display-6 fw-bold">{impact.toxic.toFixed(1)} <span className="fs-6 text-muted">g</span></div>
+                    <p className="text-muted small mb-0">Toxic Metals Diverted</p>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="p-3 border rounded bg-success text-white" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
+                    <div className="kpi-icon mx-auto mb-2" style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}><Award size={24}/></div>
+                    <div className="display-6 fw-bold">{impact.points}</div>
+                    <p className="small mb-0 opacity-75">Total Eco Points Earned</p>
+                    <div className="progress mt-2" style={{ height: '5px', background: 'rgba(255,255,255,0.3)' }}>
+                      <div className="progress-bar bg-warning" style={{ width: `${Math.min((impact.points / 1000) * 100, 100)}%` }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
