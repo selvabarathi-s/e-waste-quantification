@@ -4,8 +4,9 @@ services:
     name: e-waste-backend
     env: node
     plan: free
-    buildCommand: "cd backend && npm install"
-    startCommand: "cd backend && npm start"
+    buildCommand: "npm install"
+    startCommand: "node app.js"
+    rootDir: "backend"
     envVars:
       - key: FLASK_URL
         fromService:
@@ -26,13 +27,15 @@ services:
     name: e-waste-ml
     env: python
     plan: free
-    buildCommand: "cd ml-service && pip install -r requirements.txt"
-    startCommand: "cd ml-service && gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
+    rootDir: "ml-service"
 
   # Python Computer Vision Service
   - type: web
     name: e-waste-cv
     env: python
     plan: free
-    buildCommand: "cd cv-service && pip install -r requirements.txt"
-    startCommand: "cd cv-service && gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
+    rootDir: "cv-service"
