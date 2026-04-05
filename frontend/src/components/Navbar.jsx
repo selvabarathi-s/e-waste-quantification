@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart3, Upload, TrendingUp, Menu, X, Zap, Shield, Lightbulb, Camera, LogOut, User, Building, Settings } from 'lucide-react';
+import { BarChart3, Upload, TrendingUp, Menu, X, Zap, Shield, Lightbulb, Camera, LogOut, User, Building, Settings, Sun, Moon, Palette } from 'lucide-react';
 
-const Navbar = ({ user, onLogout }) => {
+const Navbar = ({ user, onLogout, theme, setTheme }) => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const isActive = (path) => location.pathname === path ? 'active' : '';
@@ -96,7 +96,16 @@ const Navbar = ({ user, onLogout }) => {
             )}
 
             {user && (
-              <li className="nav-item ms-lg-3 mt-3 mt-lg-0">
+              <li className="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex align-items-center gap-2">
+                <button 
+                  className="btn btn-outline-light btn-sm p-2 d-flex align-items-center" 
+                  onClick={() => setTheme(theme === 'light' ? 'dark' : theme === 'dark' ? 'mix' : 'light')}
+                  title={`Current theme: ${theme}`}
+                >
+                  {theme === 'light' && <Sun size={16} />}
+                  {theme === 'dark' && <Moon size={16} />}
+                  {theme === 'mix' && <Palette size={16} />}
+                </button>
                 <button className="btn btn-outline-light btn-sm d-flex align-items-center" onClick={() => { onLogout(); setIsOpen(false); }}>
                   <LogOut size={16} className="me-2" /> Logout ({user.username})
                 </button>

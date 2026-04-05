@@ -22,6 +22,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('ewaste_theme') || 'light');
 
   useEffect(() => {
     // Load from local storage if available
@@ -30,6 +31,11 @@ function App() {
       setUser(JSON.parse(savedUser));
     }
   }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('ewaste_theme', theme);
+  }, [theme]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -43,7 +49,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar user={user} onLogout={handleLogout} />
+      <Navbar user={user} onLogout={handleLogout} theme={theme} setTheme={setTheme} />
       <div className="container mt-4 mb-5" style={{ minHeight: '80vh' }}>
         <Routes>
           {!user ? (

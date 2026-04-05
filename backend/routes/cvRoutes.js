@@ -57,7 +57,7 @@ router.post('/classify/batch', upload.array('images', 20), async (req, res) => {
     if (!req.files || req.files.length === 0) return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'No images provided' } });
 
     const formData = new FormData();
-    req.files.forEach((f) => formData.append('images', f.buffer, { filename: f.originalname, contentType: f.file.mimetype }));
+    req.files.forEach((f) => formData.append('images', f.buffer, { filename: f.originalname, contentType: f.mimetype }));
 
     const response = await axios.post(`${CV_URL}/classify/batch`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -98,28 +98,20 @@ router.get('/cv/history', async (req, res) => {
     const cls = req.query.class || null;
     const isEwaste = req.query.is_ewaste;
 
-    let sql = 'SELECT * FROM cv_classifications WHERE 1=1';
+    let whereSql = 'WHERE 1=1';
     const params = [];
 
     if (cls) {
-      sql += ' AND predicted_class = ?';
+      whereSql += ' AND predicted_class = ?';
       params.push(cls);
     }
-    if (isEwaste !== undefined) {
-      sql += ' AND is_ewaste = ?';
+    if (isEwaste !== undefined && isEwaste !== '') {
+      whereSql += ' AND is_ewaste = ?';
       params.push(isEwaste === 'true' ? 1 : 0);
     }
 
-    const countSql = `SELECT COUNT(*) AS total FROM (${sql}) AS t`;
-    const [countRows] = await require('mysql2/promise').createPool({
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASSWORD || '1234',
-      database: process.env.DB_NAME || 'ewaste_schema',
-    }).execute(countSql, params);
-
-    sql += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
-    const rows = await query(sql, [...params, limit, offset]);
+    const countRows = await query(`SELECT COUNT(*) AS total FROM cv_classifications ${whereSql}`, params);
+    const rows = await query(`SELECT * FROM cv_classifications ${whereSql} ORDER BY created_at DESC LIMIT ? OFFSET ?`, [...params, limit, offset]);
 
     const parsed = rows.map((r) => ({
       ...r,
@@ -131,7 +123,7 @@ router.get('/cv/history', async (req, res) => {
       pagination: {
         page,
         limit,
-        total: countRows[0]?.total || rows.length,
+        total: countRows[0]?.total || 0,
         hasMore: rows.length === limit,
       },
     });
@@ -139,6 +131,7 @@ router.get('/cv/history', async (req, res) => {
     res.status(500).json({ error: { code: 'HISTORY_ERROR', message: e.message } });
   }
 });
+
 
 router.get('/cv/stats', async (req, res) => {
   try {
