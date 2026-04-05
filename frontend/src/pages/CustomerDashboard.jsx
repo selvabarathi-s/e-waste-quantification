@@ -90,7 +90,7 @@ const CustomerDashboard = () => {
       <div className="row g-4">
         <div className="col-lg-6">
           <div className="card h-100 shadow-sm border-0">
-            <div className="card-header bg-white border-0 pt-4 pb-0">
+            <div className="card-header border-0 pt-4 pb-0">
               <h5 className="fw-bold"><Smartphone className="me-2" />Add New Device</h5>
             </div>
             <div className="card-body">
@@ -136,7 +136,7 @@ const CustomerDashboard = () => {
           
           {/* List logged devices */}
           <div className="card mb-4 shadow-sm border-0">
-            <div className="card-header bg-white border-0 pt-4 pb-0">
+            <div className="card-header border-0 pt-4 pb-0">
               <h5 className="fw-bold">My Logged Devices</h5>
             </div>
             <div className="card-body p-0">
@@ -159,7 +159,7 @@ const CustomerDashboard = () => {
           </div>
 
           <div className="card shadow-sm border-0 mb-4">
-            <div className="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+            <div className="card-header border-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
               <h5 className="fw-bold"><MapPin className="me-2" />Nearest Hubs & Centers</h5>
               <button className="btn btn-outline-secondary btn-sm">View Map</button>
             </div>
@@ -184,7 +184,7 @@ const CustomerDashboard = () => {
           </div>
 
           <div className="card shadow-sm border-0">
-            <div className="card-header bg-white border-0 pt-4 pb-0">
+            <div className="card-header border-0 pt-4 pb-0">
               <h5 className="fw-bold"><Truck className="me-2" />Request Pickup</h5>
             </div>
             <div className="card-body">

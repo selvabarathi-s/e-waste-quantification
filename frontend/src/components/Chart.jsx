@@ -7,14 +7,14 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div style={{
-        background: '#fff',
+        background: 'var(--bg-card, #fff)',
         padding: '12px 16px',
         borderRadius: '12px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        border: '1px solid #e2e8f0',
+        boxShadow: 'var(--shadow-md, 0 4px 12px rgba(0,0,0,0.15))',
+        border: '1px solid var(--border, #e2e8f0)',
         fontSize: '0.875rem'
       }}>
-        <p style={{ fontWeight: 600, marginBottom: '8px', color: '#1e293b' }}>Year: {label}</p>
+        <p style={{ fontWeight: 600, marginBottom: '8px', color: 'var(--text-primary, #1e293b)' }}>Year: {label}</p>
         {payload.map((entry, index) => (
           <p key={index} style={{ color: entry.color, margin: '4px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: entry.color, display: 'inline-block' }}></span>
@@ -40,9 +40,9 @@ const Chart = ({ data, xKey, yKeys, colors: customColors }) => {
             </linearGradient>
           ))}
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-        <XAxis dataKey={xKey} tick={{ fill: '#64748b', fontSize: 12 }} axisLine={{ stroke: '#e2e8f0' }} />
-        <YAxis tick={{ fill: '#64748b', fontSize: 12 }} axisLine={{ stroke: '#e2e8f0' }} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" strokeOpacity={0.2} />
+        <XAxis dataKey={xKey} tick={{ fill: 'var(--text-muted, #64748b)', fontSize: 12 }} axisLine={{ stroke: 'var(--border, #e2e8f0)' }} />
+        <YAxis tick={{ fill: 'var(--text-muted, #64748b)', fontSize: 12 }} axisLine={{ stroke: 'var(--border, #e2e8f0)' }} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '0.85rem' }} />
         {yKeys.map((key, index) => (

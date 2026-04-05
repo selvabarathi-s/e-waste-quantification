@@ -33,7 +33,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-bs-theme', theme);
+    document.documentElement.setAttribute('data-bs-theme', theme === 'mix' ? 'dark' : theme);
+    document.documentElement.setAttribute('data-theme-name', theme);
     localStorage.setItem('ewaste_theme', theme);
   }, [theme]);
 

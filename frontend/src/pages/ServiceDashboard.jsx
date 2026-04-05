@@ -87,7 +87,7 @@ const ServiceDashboard = () => {
 
       <div className="row mb-4">
         <div className="col-md-4">
-          <div className="premium-card bg-white">
+          <div className="premium-card">
             <div className="card-body d-flex align-items-center">
               <div className="bg-primary bg-opacity-10 p-3 rounded me-3 text-primary">
                 <Box size={24} />
@@ -100,7 +100,7 @@ const ServiceDashboard = () => {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="premium-card bg-white">
+          <div className="premium-card">
             <div className="card-body d-flex align-items-center">
               <div className="bg-success bg-opacity-10 p-3 rounded me-3 text-success">
                 <Wrench size={24} />
@@ -113,7 +113,7 @@ const ServiceDashboard = () => {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="premium-card bg-white">
+          <div className="premium-card">
             <div className="card-body d-flex align-items-center">
               <div className="bg-danger bg-opacity-10 p-3 rounded me-3 text-danger">
                 <Recycle size={24} />
@@ -130,7 +130,7 @@ const ServiceDashboard = () => {
       </div>
 
       <div className="premium-card mb-4">
-        <div className="card-header bg-white border-bottom-0 pb-0 pt-3">
+        <div className="card-header border-bottom-0 pb-0 pt-3">
           <ul className="nav nav-tabs border-bottom-0">
             <li className="nav-item cursor-pointer" style={{ cursor: 'pointer' }}>
               <a className={`nav-link fw-bold ${activeTab === 'repair' ? 'active border-bottom border-success border-3 text-success' : 'text-muted border-0'}`} onClick={() => setActiveTab('repair')}>
@@ -146,7 +146,7 @@ const ServiceDashboard = () => {
         </div>
         <div className="card-body bg-light">
           
-          <div className="bg-white p-4 rounded shadow-sm border mb-4">
+          <div className="p-4 rounded shadow-sm border mb-4">
              <h5>Log New {activeTab === 'repair' ? 'Repair' : 'Scrap Batch'} Job</h5>
              <form className="row g-3 mt-2" onSubmit={handleAddJob}>
                 <div className="col-md-4">
@@ -169,7 +169,7 @@ const ServiceDashboard = () => {
              </form>
           </div>
 
-          <div className="bg-white p-0 rounded shadow-sm border overflow-hidden table-responsive">
+          <div className="p-0 rounded shadow-sm border overflow-hidden table-responsive">
             {activeTab === 'repair' && (
               <table className="table table-hover mb-0">
                 <thead className="table-light">

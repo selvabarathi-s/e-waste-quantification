@@ -301,7 +301,7 @@ const CV = () => {
 
                   <div className="row g-3 mb-3">
                     <div className="col-4">
-                      <div className="text-center p-2 rounded" style={{ background: '#f8fafc' }}>
+                      <div className="text-center p-2 rounded shadow-sm border">
                         <div style={{ fontWeight: 700, fontSize: '1.3rem', color: '#6366f1' }}>
                           {(singleResult.confidence * 100).toFixed(1)}%
                         </div>
@@ -309,7 +309,7 @@ const CV = () => {
                       </div>
                     </div>
                     <div className="col-4">
-                      <div className="text-center p-2 rounded" style={{ background: '#f8fafc' }}>
+                      <div className="text-center p-2 rounded shadow-sm border">
                         <div style={{ fontWeight: 700, fontSize: '1.3rem' }}>
                           ~{singleResult.estimated_weight_kg} kg
                         </div>
@@ -317,7 +317,7 @@ const CV = () => {
                       </div>
                     </div>
                     <div className="col-4">
-                      <div className="text-center p-2 rounded" style={{ background: '#f8fafc' }}>
+                      <div className="text-center p-2 rounded shadow-sm border">
                         <div style={{ fontWeight: 700, fontSize: '1.3rem' }}>
                           {singleResult.device_category || '—'}
                         </div>
@@ -362,7 +362,7 @@ const CV = () => {
               <div className="card p-5 text-center fade-in">
                 <div className="empty-state">
                   <Zap className="empty-state-icon" style={{ color: '#6366f1' }} />
-                  <h5 style={{ color: '#1e293b', fontWeight: 600 }}>AI-Powered Detection</h5>
+                  <h5 className="fw-semibold">AI-Powered Detection</h5>
                   <p className="text-muted">Upload an image to classify e-waste type, estimate weight, and categorize automatically.</p>
                 </div>
               </div>
@@ -593,7 +593,7 @@ const CV = () => {
             <div className="card p-5 text-center">
               <div className="empty-state">
                 <History className="empty-state-icon" style={{ color: '#6366f1' }} />
-                <h5 style={{ color: '#1e293b', fontWeight: 600 }}>No Classification History</h5>
+                <h5 className="fw-semibold">No Classification History</h5>
                 <p className="text-muted">Classify some images to see your history here.</p>
               </div>
             </div>

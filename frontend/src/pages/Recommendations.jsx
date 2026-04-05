@@ -185,7 +185,7 @@ const Recommendations = () => {
                     </div>
                     <Activity size={24} className="opacity-50" />
                   </div>
-                  <div className="p-4 bg-white rounded-bottom">
+                  <div className="p-3 mb-3 border rounded shadow-sm">
                     <div className="d-flex justify-content-between mb-4 pb-3 border-bottom">
                       <div>
                         <div className="text-secondary small fw-semibold text-uppercase tracking-wider">Score</div>
@@ -196,7 +196,7 @@ const Recommendations = () => {
                         <div className="display-6 fw-bold" style={{ color: '#1e293b' }}>{c.estimated_capacity_tonnes}<span className="fs-6 text-muted">t</span></div>
                       </div>
                     </div>
-                    <div className="d-flex align-items-start gap-2 text-muted small bg-light p-3 rounded">
+                    <div className="d-flex align-items-start gap-2 text-muted small p-3 rounded">
                       <Info size={16} className="mt-1 flex-shrink-0 text-primary" />
                       <span className="lh-base">{c.rationale}</span>
                     </div>
@@ -232,11 +232,11 @@ const Recommendations = () => {
                 </thead>
                 <tbody>
                   {bins.map((b, i) => (
-                    <tr key={i} className="bg-white shadow-sm-hover rounded-row transition-all">
+                    <tr key={i} className="shadow-sm-hover rounded-row transition-all">
                       <td className="py-4 ps-3">
                         <div className="d-flex align-items-center gap-3">
-                          <div className="icon-circle bg-light text-primary"><MapPin size={18}/></div>
-                          <strong className="text-dark fs-6">{b.region}</strong>
+                          <div className="icon-circle text-primary"><MapPin size={18}/></div>
+                          <strong className="fs-6">{b.region}</strong>
                         </div>
                       </td>
                       <td className="py-4 text-muted small font-monospace">
@@ -344,11 +344,11 @@ const Recommendations = () => {
                       </thead>
                       <tbody>
                         {rankedCenters.map((c, i) => (
-                          <tr key={c.id || c.rank} className="bg-white shadow-sm-hover rounded-row">
+                          <tr key={c.id || c.rank} className="shadow-sm-hover rounded-row">
                             <td className="py-4 ps-4">
                               <span className={`rank-badge ${i < 3 ? 'top-rank' : 'normal-rank'}`}>#{c.rank}</span>
                             </td>
-                            <td className="py-4"><strong className="fs-6 text-dark">{c.region}</strong></td>
+                            <td className="py-4"><strong className="fs-6">{c.region}</strong></td>
                             <td className="py-4">
                               <div className="score-bar-container">
                                 <span className="fw-bold me-3">{c.priority_score}</span>
@@ -394,11 +394,11 @@ const Recommendations = () => {
                       </thead>
                       <tbody>
                         {rankedBins.map((b) => (
-                          <tr key={b.rank} className="bg-white shadow-sm-hover rounded-row">
+                          <tr key={b.rank} className="shadow-sm-hover rounded-row">
                             <td className="py-4 ps-4">
                               <span className="fw-black text-muted fs-5">#{b.rank}</span>
                             </td>
-                            <td className="py-4"><strong className="text-dark">{b.region}</strong></td>
+                            <td className="py-4"><strong>{b.region}</strong></td>
                             <td className="py-4"><span className="fw-medium text-secondary">{b.bin_type}</span></td>
                             <td className="py-4">
                               <div className="d-flex gap-1 rating-dots">

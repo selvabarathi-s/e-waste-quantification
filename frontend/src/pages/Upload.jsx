@@ -132,7 +132,7 @@ const Upload = () => {
             onClick={() => document.getElementById('file-input').click()}
           >
             <UploadCloud className="upload-zone-icon" />
-            <h5 style={{ fontWeight: 600, color: '#1e293b', marginBottom: '0.5rem' }}>
+            <h5 className="fw-semibold mb-2">
               {isDragActive ? 'Drop your file here' : 'Drag & drop your file here'}
             </h5>
             <p className="text-muted mb-3" style={{ fontSize: '0.9rem' }}>or click to browse files</p>
@@ -157,7 +157,7 @@ const Upload = () => {
                   <FileText size={20} />
                 </div>
                 <div className="flex-grow-1">
-                  <div style={{ fontWeight: 600, fontSize: '0.95rem', color: '#1e293b' }}>{file.name}</div>
+                  <div className="fw-semibold" style={{ fontSize: '0.95rem' }}>{file.name}</div>
                   <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{formatFileSize(file.size)}</div>
                 </div>
                 <button

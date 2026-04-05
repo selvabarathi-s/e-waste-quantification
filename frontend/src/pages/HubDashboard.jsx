@@ -124,7 +124,7 @@ const HubDashboard = () => {
       </div>
 
       <div className="premium-card mb-4">
-        <div className="card-header bg-white border-bottom-0 pb-0 pt-3">
+        <div className="card-header border-bottom-0 pb-0 pt-3">
           <ul className="nav nav-tabs border-bottom-0">
             <li className="nav-item cursor-pointer" style={{ cursor: 'pointer' }}>
               <a className={`nav-link fw-bold ${activeTab === 'entry' ? 'active border-bottom border-primary border-3' : 'text-muted border-0'}`} onClick={() => setActiveTab('entry')}>
@@ -140,7 +140,7 @@ const HubDashboard = () => {
         </div>
         <div className="card-body bg-light">
           {activeTab === 'entry' && (
-            <div className="bg-white p-4 rounded shadow-sm border">
+            <div className="p-4 rounded shadow-sm border">
               <h5>New Batch Entry</h5>
               <form className="row g-3 mt-2" onSubmit={handleSubmit}>
                 <div className="col-md-4">
@@ -172,7 +172,7 @@ const HubDashboard = () => {
           )}
 
           {activeTab === 'inventory' && (
-            <div className="bg-white p-0 rounded shadow-sm border overflow-hidden table-responsive">
+            <div className="p-0 rounded shadow-sm border overflow-hidden table-responsive">
                <table className="table table-hover mb-0">
                 <thead className="table-light">
                   <tr>
