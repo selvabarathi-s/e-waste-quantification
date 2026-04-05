@@ -4,6 +4,7 @@ import { Package, Inbox, Truck, BarChart2, CheckCircle, Database } from 'lucide-
 const HubDashboard = () => {
   const [activeTab, setActiveTab] = useState('inventory');
   const [items, setItems] = useState([]);
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
   
   // Form State
   const [source, setSource] = useState('Customer Drop-off');
@@ -16,7 +17,7 @@ const HubDashboard = () => {
 
   const fetchInventory = async () => {
     try {
-      const resp = await fetch('http://localhost:5000/api/hub/inventory');
+      const resp = await fetch(`${API_BASE}/hub/inventory`);
       if (resp.ok) {
         setItems(await resp.json());
       }
@@ -35,7 +36,7 @@ const HubDashboard = () => {
     }
 
     try {
-      await fetch('http://localhost:5000/api/hub/inventory', {
+      await fetch(`${API_BASE}/hub/inventory`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -56,7 +57,7 @@ const HubDashboard = () => {
 
   const handleUpdateDestination = async (id, newDestination) => {
     try {
-      await fetch(`http://localhost:5000/api/hub/inventory/${id}`, {
+      await fetch(`${API_BASE}/hub/inventory/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'Dispatched', destination: newDestination })
@@ -69,7 +70,7 @@ const HubDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/hub/inventory/${id}`, {
+      await fetch(`${API_BASE}/hub/inventory/${id}`, {
         method: 'DELETE'
       });
       fetchInventory();

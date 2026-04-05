@@ -4,6 +4,7 @@ import { Wrench, Recycle, CheckCircle, Activity, Box, Settings, Trash2 } from 'l
 const ServiceDashboard = () => {
   const [activeTab, setActiveTab] = useState('repair');
   const [jobs, setJobs] = useState([]);
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
   // Form State
   const [jobType, setJobType] = useState('Repair');
@@ -17,7 +18,7 @@ const ServiceDashboard = () => {
 
   const fetchJobs = async () => {
     try {
-      const resp = await fetch('http://localhost:5000/api/service/jobs');
+      const resp = await fetch(`${API_BASE}/service/jobs`);
       if (resp.ok) {
         setJobs(await resp.json());
       }
@@ -29,7 +30,7 @@ const ServiceDashboard = () => {
   const handleAddJob = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:5000/api/service/jobs', {
+      await fetch(`${API_BASE}/service/jobs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -50,7 +51,7 @@ const ServiceDashboard = () => {
 
   const handleUpdateStatus = async (id, newStatus) => {
     try {
-      await fetch(`http://localhost:5000/api/service/jobs/${id}`, {
+      await fetch(`${API_BASE}/service/jobs/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -63,7 +64,7 @@ const ServiceDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/service/jobs/${id}`, {
+      await fetch(`${API_BASE}/service/jobs/${id}`, {
         method: 'DELETE'
       });
       fetchJobs();

@@ -7,6 +7,7 @@ const CustomerDashboard = () => {
   const [condition, setCondition] = useState('good');
   const [suggestion, setSuggestion] = useState(null);
   const [devices, setDevices] = useState([]);
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
   // Mock currently logged-in user from localStorage 
   const currentUser = JSON.parse(localStorage.getItem('ewaste_user'))?.username || 'customer';
@@ -17,7 +18,7 @@ const CustomerDashboard = () => {
 
   const fetchDevices = async () => {
     try {
-      const resp = await fetch('http://localhost:5000/api/customer/devices');
+      const resp = await fetch(`${API_BASE}/customer/devices`);
       if (resp.ok) {
         const data = await resp.json();
         // Since we don't have true auth, just show devices for this user
@@ -46,7 +47,7 @@ const CustomerDashboard = () => {
 
     // Save to backend
     try {
-      await fetch('http://localhost:5000/api/customer/devices', {
+      await fetch(`${API_BASE}/customer/devices`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,7 +66,7 @@ const CustomerDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/customer/devices/${id}`, {
+      await fetch(`${API_BASE}/customer/devices/${id}`, {
         method: 'DELETE'
       });
       fetchDevices();
