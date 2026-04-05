@@ -1,45 +1,38 @@
 services:
+  # Node.js Backend API
   - type: web
     name: e-waste-backend
-    runtime: node
-    region: singapore
+    env: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node app.js
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
     envVars:
-      - key: PORT
-        value: 10000
-      - key: NODE_ENV
-        value: production
-      - key: DB_HOST
-        fromDatabase:
-          name: ewaste-db
-          property: host
-      - key: DB_USER
-        fromDatabase:
-          name: ewaste-db
-          property: user
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: ewaste-db
-          property: password
-      - key: DB_NAME
-        fromDatabase:
-          name: ewaste-db
-          property: database
       - key: FLASK_URL
-        value: http://localhost:5001
-      - key: CV_URL
-        value: http://localhost:5002
-      - key: LOG_LEVEL
-        value: info
-      - key: ML_REQUEST_TIMEOUT_MS
-        value: 60000
+        fromService:
+          type: web
+          name: e-waste-ml
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: DB_HOST
+        value: "YOUR_MYSQL_HOST_HERE"
+      - key: DB_USER
+        value: "YOUR_MYSQL_USER_HERE"
+      - key: DB_PASSWORD
+        value: "YOUR_MYSQL_PASSWORD_HERE"
+      - key: DB_NAME
+        value: "YOUR_MYSQL_DATABASE_HERE"
 
-databases:
-  - name: ewaste-db
-    databaseName: ewaste_schema
-    user: ewaste_user
+  # Python Machine Learning Service
+  - type: web
+    name: e-waste-ml
+    env: python
     plan: free
-    region: singapore
+    buildCommand: "cd ml-service && pip install -r requirements.txt"
+    startCommand: "cd ml-service && gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
+
+  # Python Computer Vision Service
+  - type: web
+    name: e-waste-cv
+    env: python
+    plan: free
+    buildCommand: "cd cv-service && pip install -r requirements.txt"
+    startCommand: "cd cv-service && gunicorn -w 2 -b 0.0.0.0:$PORT app:app"
