@@ -167,7 +167,7 @@ const CustomerDashboard = () => {
 
       <div className="row g-4">
         <div className="col-lg-6">
-          <div className="card h-100 shadow-sm border-0">
+          <div className="card shadow-sm border-0">
             <div className="card-header border-0 pt-4 pb-0">
               <h5 className="fw-bold"><Smartphone className="me-2" />Add New Device</h5>
             </div>
@@ -194,7 +194,7 @@ const CustomerDashboard = () => {
                     <option value="poor">Poor (Not turning on / Broken)</option>
                   </select>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Get AI Suggestion & Save</button>
+                <button type="submit" className="btn btn-primary-custom w-100">Get AI Suggestion & Save</button>
               </form>
 
               {suggestion && (
