@@ -34,9 +34,9 @@ async function transaction(callback) {
 
 async function initDB() {
   try {
-    // Open SQLite database file on persistent volume
+    // Open SQLite database file (e-waste.db)
     db = await open({
-      filename: '/opt/render/project/src/backend/database/e-waste.db',
+      filename: path.join(__dirname, '../e-waste.db'),
       driver: sqlite3.Database
     });
 

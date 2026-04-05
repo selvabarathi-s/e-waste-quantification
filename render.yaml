@@ -7,10 +7,6 @@ services:
     buildCommand: "npm install"
     startCommand: "node app.js"
     rootDir: "backend"
-    disk:
-      name: ewaste-data
-      mountPath: /opt/render/project/src/backend/database
-      sizeGB: 1
     envVars:
       - key: FLASK_URL
         fromService:
