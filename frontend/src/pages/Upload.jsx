@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { uploadData } from '../services/api';
 import { UploadCloud, FileText, CheckCircle, XCircle, Loader2, AlertCircle, Eye, Table } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 const Upload = () => {
   const [file, setFile] = useState(null);

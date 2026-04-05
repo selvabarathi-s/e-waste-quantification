@@ -4,7 +4,7 @@ import { Wrench, Recycle, CheckCircle, Activity, Box, Settings, Trash2 } from 'l
 const ServiceDashboard = () => {
   const [activeTab, setActiveTab] = useState('repair');
   const [jobs, setJobs] = useState([]);
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
   // Form State
   const [jobType, setJobType] = useState('Repair');

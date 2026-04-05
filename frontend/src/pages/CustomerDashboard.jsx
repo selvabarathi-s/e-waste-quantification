@@ -7,7 +7,7 @@ const CustomerDashboard = () => {
   const [condition, setCondition] = useState('good');
   const [suggestion, setSuggestion] = useState(null);
   const [devices, setDevices] = useState([]);
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
   
   // Environmental constants for quantification
   const ECO_METRICS = {

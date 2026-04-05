@@ -23,7 +23,7 @@ const parseApiError = (error) => {
   return error.message || 'Request failed';
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 const Simulation = () => {
   const [params, setParams] = useState({

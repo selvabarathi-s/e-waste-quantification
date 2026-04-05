@@ -26,7 +26,7 @@ const RISK_ICONS = {
   Red: ShieldAlert,
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 const Sustainability = () => {
   const [scores, setScores] = useState([]);

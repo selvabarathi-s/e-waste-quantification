@@ -4,7 +4,7 @@ import { Package, Inbox, Truck, BarChart2, CheckCircle, Database } from 'lucide-
 const HubDashboard = () => {
   const [activeTab, setActiveTab] = useState('inventory');
   const [items, setItems] = useState([]);
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
   
   // Form State
   const [source, setSource] = useState('Customer Drop-off');
